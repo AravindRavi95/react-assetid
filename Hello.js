@@ -8,6 +8,21 @@ import Paper from '@material-ui/core/Paper';
 import firebase from './resource/fire.js';
 import MaterialTable from 'material-table';
 import Icons from '@material-ui/icons'
+import Search from '@material-ui/icons/Search'
+import ViewColumn from '@material-ui/icons/ViewColumn'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Add from '@material-ui/icons/Add'
+import Check from '@material-ui/icons/Check'
+import FilterList from '@material-ui/icons/FilterList'
+import Remove from '@material-ui/icons/Remove'
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import AddBox from '@material-ui/icons/AddBox';
 
 class Quiz extends React.Component {
   constructor(props){
@@ -114,15 +129,33 @@ class Quiz extends React.Component {
   render(){
     return(
       <MaterialTable
+      title="Asset ID"
       columns={this.state.columns}
-      icons={Icons}
+      icons={{ 
+                        Check: () => <Check />,
+                        Add: () => <AddBox/>,
+                        Clear: () => <Clear />,
+                        ResetSearch: () => null,
+                        Delete: () => null,
+                        Edit: () => <Edit/>,
+                        Export: () => <SaveAlt />,
+                        Filter: () => <FilterList />,
+                        FirstPage: () => <FirstPage />,
+                        LastPage: () => <LastPage />,
+                        NextPage: () => <ChevronRight />,
+                        PreviousPage: () => <ChevronLeft />,
+                        Search: () => null,
+                        ThirdStateCheck: () => <Remove />,
+                        ViewColumn: () => <ViewColumn />,
+                        DetailPanel: () => <ChevronRight />,
+                      }}
       data={this.state.data}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              const data = [this.state.data];
+              const data = [...this.state.data];
               data.push(newData);
               this.setState({ data });
             }, 600);
@@ -131,7 +164,7 @@ class Quiz extends React.Component {
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              const data = [this.state.data];
+              const data = [...this.state.data];
               data[data.indexOf(oldData)] = newData;
               this.setState({ data });
             }, 600);
@@ -140,7 +173,7 @@ class Quiz extends React.Component {
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              const data = [this.state.data];
+              const data = [...this.state.data];
               data.splice(data.indexOf(oldData), 1);
               this.setState({ data });
             }, 600);
